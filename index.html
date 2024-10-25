@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    <!-- 文字エンコーディングの指定 -->
     <meta charset="UTF-8">
+    <!-- レスポンシブデザイン用のビューポート設定 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ページのタイトル -->
     <title>テトリス</title>
-    <style>
-        #gameBoard {
-            border: 1px solid black;
-        }
-    </style>
+    <!-- 外部CSSファイルのリンク -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- ゲームボードを表示するcanvas要素 -->
+    <!-- width と height 属性でキャンバスのサイズを指定（ピクセル単位） -->
     <canvas id="gameBoard" width="200" height="400"></canvas>
+
+    <!-- テトリスゲームのロジックを含むJavaScriptファイルの読み込み -->
+    <!-- src属性で、同じディレクトリにあるtetris.jsファイルを指定 -->
     <script src="tetris.js"></script>
 </body>
 </html>

@@ -1,31 +1,36 @@
+// canvas要素の取得
 const canvas = document.getElementById('gameBoard');
 const ctx = canvas.getContext('2d');
 
+// ゲームボードの設定
 const ROWS = 20;
 const COLS = 10;
 const BLOCK_SIZE = 20;
 
-// テトロミノの形状
+// テトロミノの形状定義
 const SHAPES = [
     [],
-    [[1, 1, 1, 1]],
-    [[1, 1], [1, 1]],
-    [[1, 1, 1], [0, 1, 0]],
-    [[1, 1, 1], [1, 0, 0]],
-    [[1, 1, 1], [0, 0, 1]],
-    [[1, 1, 0], [0, 1, 1]],
-    [[0, 1, 1], [1, 1, 0]]
+    [[1, 1, 1, 1]],  // I
+    [[1, 1], [1, 1]],  // O
+    [[1, 1, 1], [0, 1, 0]],  // T
+    [[1, 1, 1], [1, 0, 0]],  // L
+    [[1, 1, 1], [0, 0, 1]],  // J
+    [[1, 1, 0], [0, 1, 1]],  // S
+    [[0, 1, 1], [1, 1, 0]]   // Z
 ];
 
+// ゲームボードの初期化
 let board = Array(ROWS).fill().map(() => Array(COLS).fill(0));
 let currentPiece = getRandomPiece();
 let currentX = 3;
 let currentY = 0;
 
+// ランダムなテトロミノを取得する関数
 function getRandomPiece() {
     return SHAPES[Math.floor(Math.random() * SHAPES.length)];
 }
 
+// ゲームボードを描画する関数
 function drawBoard() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let y = 0; y < ROWS; y++) {
@@ -38,6 +43,7 @@ function drawBoard() {
     }
 }
 
+// 現在のテトロミノを描画する関数
 function drawPiece() {
     ctx.fillStyle = 'red';
     for (let y = 0; y < currentPiece.length; y++) {
@@ -49,6 +55,7 @@ function drawPiece() {
     }
 }
 
+// テトロミノの移動が有効かチェックする関数
 function isValidMove(piece, x, y) {
     for (let py = 0; py < piece.length; py++) {
         for (let px = 0; px < piece[py].length; px++) {
@@ -64,6 +71,7 @@ function isValidMove(piece, x, y) {
     return true;
 }
 
+// テトロミノをボードに固定する関数
 function mergePiece() {
     for (let y = 0; y < currentPiece.length; y++) {
         for (let x = 0; x < currentPiece[y].length; x++) {
@@ -74,6 +82,7 @@ function mergePiece() {
     }
 }
 
+// 揃った行を削除する関数
 function removeFullRows() {
     for (let y = ROWS - 1; y >= 0; y--) {
         if (board[y].every(cell => cell)) {
@@ -83,6 +92,7 @@ function removeFullRows() {
     }
 }
 
+// ゲームのメインループ
 function gameLoop() {
     if (isValidMove(currentPiece, currentX, currentY + 1)) {
         currentY++;
@@ -101,6 +111,7 @@ function gameLoop() {
     drawPiece();
 }
 
+// キーボード入力のイベントリスナー
 document.addEventListener('keydown', (e) => {
     switch (e.key) {
         case 'ArrowLeft':
@@ -121,6 +132,9 @@ document.addEventListener('keydown', (e) => {
     drawPiece();
 });
 
+// ゲームループの開始（500ミリ秒ごとに実行）
 setInterval(gameLoop, 500);
+
+// 初期描画
 drawBoard();
 drawPiece();

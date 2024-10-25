@@ -1,0 +1,12 @@
+/* ゲームボード（canvas要素）のスタイル */
+#gameBoard {
+    border: 1px solid black; /* 黒い枠線を追加 */
+}
+
+/* 
+中央寄せにしたい場合は以下のスタイルを追加してください
+#gameBoard {
+    display: block;
+    margin: 0 auto;
+}
+*/
