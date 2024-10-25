@@ -5,8 +5,8 @@
 
 /* 
 中央寄せにしたい場合は以下のスタイルを追加してください
+*/
 #gameBoard {
     display: block;
     margin: 0 auto;
 }
-*/
